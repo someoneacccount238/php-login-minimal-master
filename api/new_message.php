@@ -44,6 +44,6 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 $data = json_decode(file_get_contents('php://input'), true);
 
 require_once("../classes/Message.php");
-$message = new Message($data['avatar'],$data['id'], $data['msg'], $data['createdAt'], $data['from'], $data['to']);
+$message = new Message( $data['id'], $data['msg'], $data['createdAt'], $data['from'], $data['to']);
 
 echo json_encode(['status' => 'success', 'message' => $data['msg']]);

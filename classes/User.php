@@ -43,6 +43,8 @@ class User
 
         $sql = "UPDATE users SET Avatar = '$avatar' WHERE user_email = '$user_email';";
 
+        print_r($sql);
+
         $this->db_connection->query($sql);
     }
 }

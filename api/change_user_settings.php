@@ -1,5 +1,7 @@
 <?php
-
+ini_set("display_startup_errors", "1");
+ini_set("display_errors", "1");
+error_reporting(E_ALL);
 function cors()
 {
 
@@ -47,9 +49,27 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-// include the configs / constants for the database connection
-require_once("../config/db.php");
-require_once("../classes/User.php");
+
+ 
+$uploaddir = __DIR__ . '/../assets/avatars/';
+$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+echo $_FILES['userfile']['tmp_name'].'d';
+echo '<pre>';
+move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile);
+  
+if (is_uploaded_file($_FILES['userfile']['tmp_name'])) {
+    echo "File ". $_FILES['userfile']['name'] ." uploaded successfully.\n";
+    echo "Displaying contents\n";
+    readfile($_FILES['userfile']['tmp_name']);
+ } else {
+    echo "Possible file upload attack: ";
+    echo "filename '". $_FILES['userfile']['tmp_name'] . "'.";
+ }
+
+echo 'Дополнительная отладочная информация:';
+print_r($_FILES);
+
+print "</pre>";
+
 $user = new User();
-$user->changeAvatar($data['email'], $data['avatar']);
-echo json_encode(['status' => 'success', 'message' =>$data['email']]);
+$user->changeAvatar($data['email'], $data['avatar']); 

@@ -7,8 +7,7 @@ class Message
 
     private $msg;
 
-
-    private $avatar;
+ 
 
     private $createdAt;
 
@@ -16,9 +15,8 @@ class Message
 
     private $to;
 
-    public function __construct($l, $m, $a, $b, $c, $d)
-    {
-        $this->avatar = $l;
+    public function __construct(  $m, $a, $b, $c, $d)
+    { 
         $this->id = $m;
         $this->msg = $a;
         $this->createdAt = $b;
@@ -31,8 +29,7 @@ class Message
     private function toJson()
     {
         $response = ([
-            'id' => $this->id,
-            'avatar' => $this->avatar,
+            'id' => $this->id, 
             'msg' =>  $this->msg,
             'createdAt' => $this->createdAt,
             'from' => $this->from,
